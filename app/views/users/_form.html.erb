@@ -1,10 +1,10 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
+<%= form_for(@user) do |form| %>
+  <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-      <% user.errors.full_messages.each do |message| %>
+      <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,17 +13,17 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true, type: "number" %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, :required => true, maxlength: 10 %>
   </div>
 
   <div class="field">
     <%= form.label :dob %>
-    <%= form.datetime_select :dob %>
+    <%= form.date_field :dob %>
   </div>
 
   <div class="field">
@@ -32,13 +32,29 @@
   </div>
 
   <div class="field">
+    <%= form.label :gender %><br />
+    <%= form.label :gender, "Male", :value => "true"  %>
+    <%= form.radio_button :gender, false, :checked => true %>
+    <%= form.label :gender, "Female", :value => "false" %>
+    <%= form.radio_button :gender, true %>
+  </div>
+
+  <%= form.fields_for :profiles do |profile| %>
+    <%= render "profile_fields", f: profile %>
+  <% end %>
+
+  <div class="links">
+    <%= link_to_add_association "Add address", form, :profiles, class: "btn btn-primary" %>
+  </div></br>
+
+  <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, cols: 19, rows: 3 %>
   </div>
 
   <div class="field">
     <%= form.label :city_id %>
-    <%= form.number_field :city_id %>
+    <%= form.select :city_id, City.all.collect {|c| [c.name, c.id]}, {include_blank: true} %>
   </div>
 
   <div class="actions">
