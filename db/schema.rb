@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_01_06_013509) do
     t.string "name"
     t.string "email"
     t.datetime "dob"
+    t.float "height"
     t.boolean "role"
     t.boolean "gender"
     t.text "description"
