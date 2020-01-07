@@ -26,8 +26,15 @@
 </p>
 
 <p>
+  <strong>Role:</strong>
+  <%= @user.height %>
+</p>
+
+<p>
   <strong>City:</strong>
-  <%= @user.city_id %>
+  <% @user.profiles.each do |pl| %>
+    <br><%= pl.address %>
+  <% end %>
 </p>
 
 <%= link_to "Edit", edit_user_path(@user) %> |
