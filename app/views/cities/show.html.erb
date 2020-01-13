@@ -5,5 +5,12 @@
   <%= @city.name %>
 </p>
 
+<p>
+  <strong>District:</strong>
+  <% @city.districts.each do |dis| %>
+    <br><%= dis.name %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_city_path(@city) %> |
 <%= link_to 'Back', cities_path %>
